@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navigation from './Navigation';
 
 interface User {
   id: string;
@@ -80,7 +81,9 @@ const ProfilePage: React.FC = () => {
 
   if (!isLoggedIn || showLogin) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24 flex items-center justify-center">
+      <>
+        <Navigation currentPage="profile" />
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24 flex items-center justify-center">
         <div className="max-w-md w-full mx-6">
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
             <div className="text-center mb-8">
@@ -161,14 +164,17 @@ const ProfilePage: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+        </div>
+      </>
     );
   }
 
   const levelInfo = getLevelInfo(user.level);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24">
+    <>
+      <Navigation currentPage="profile" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24">
       <div className="max-w-4xl mx-auto px-6 py-8">
         {/* Profile Header */}
         <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 mb-8">
@@ -342,7 +348,8 @@ const ProfilePage: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

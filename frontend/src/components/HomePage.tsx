@@ -1,9 +1,12 @@
 import React from 'react';
 import { mockRooms } from '../data/mock-data';
+import Navigation from './Navigation';
 
 const HomePage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24">
+    <>
+      <Navigation currentPage="home" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24">
       {/* Header Section */}
       <div className="px-6 py-8">
         <div className="max-w-md mx-auto">
@@ -128,7 +131,8 @@ const HomePage: React.FC = () => {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

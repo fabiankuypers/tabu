@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useGlobalLanguage } from '../hooks/useGlobalLanguage';
 import SimpleThemeSelector from './SimpleThemeSelector';
+import LanguageToggle from './LanguageToggle';
 
 interface NavigationProps {
   currentPage?: string;
@@ -7,11 +9,12 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ currentPage = 'rooms' }) => {
   const [activeTab, setActiveTab] = useState(currentPage);
+  const { t } = useGlobalLanguage();
 
   const navItems = [
     {
       id: 'rooms',
-      label: 'Räume',
+      label: t('nav.rooms'),
       href: '/rooms',
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -22,7 +25,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage = 'rooms' }) => {
     },
     {
       id: 'ladies',
-      label: 'Ladies',
+      label: t('nav.ladies'),
       href: '/ladies',
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,7 +35,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage = 'rooms' }) => {
     },
     {
       id: 'events',
-      label: 'Events',
+      label: t('nav.events'),
       href: '/events',
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,7 +45,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage = 'rooms' }) => {
     },
     {
       id: 'profile',
-      label: 'Profil',
+      label: t('nav.profile'),
       href: '/profile',
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,8 +70,9 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage = 'rooms' }) => {
             />
           </div>
 
-          {/* Right Side - Theme Selector + Notifications */}
+          {/* Right Side - Language Toggle + Theme Selector + Notifications */}
           <div className="flex items-center space-x-4">
+            <LanguageToggle />
             <SimpleThemeSelector />
             <button className="p-2 transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

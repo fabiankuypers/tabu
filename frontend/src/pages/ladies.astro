@@ -1,12 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import LadySelection from '../components/LadySelection';
-import Navigation from '../components/Navigation';
+import LadiesPage from '../components/LadiesPage';
 ---
 
 <Layout title="Ladies - TABU Gentleman's Club">
   <main>
-    <Navigation currentPage="ladies" client:load />
-    <LadySelection client:load />
+    <LadiesPage client:load />
   </main>
 </Layout>

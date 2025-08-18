@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { mockLadies } from '../data/mock-data';
 import type { Lady } from '../data/mock-data';
+import { useGlobalLanguage } from '../hooks/useGlobalLanguage';
 import LadyDetailsModal from './LadyDetailsModal';
 
 interface LadyCardProps {
@@ -11,6 +12,7 @@ interface LadyCardProps {
 
 const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady, onViewDetails }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { t } = useGlobalLanguage();
   
   console.log('👩 LadyCard rendering for:', lady.name, 'imageUrl:', lady.imageUrl);
   
@@ -86,7 +88,7 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady, onViewDetails }
 
         {/* Personality Traits */}
         <div className="mb-4">
-          <h4 className="text-sm font-medium text-slate-400 mb-2">Persönlichkeit</h4>
+          <h4 className="text-sm font-medium text-slate-400 mb-2">{t('ladies.personality')}</h4>
           <div className="flex flex-wrap gap-2">
             {lady.personality.slice(0, 3).map((trait, index) => (
               <span
@@ -101,7 +103,7 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady, onViewDetails }
 
         {/* Interests */}
         <div className="mb-4">
-          <h4 className="text-sm font-medium text-slate-400 mb-2">Interessen</h4>
+          <h4 className="text-sm font-medium text-slate-400 mb-2">{t('ladies.interests')}</h4>
           <div className="flex flex-wrap gap-2">
             {lady.interests.slice(0, 2).map((interest, index) => (
               <span
@@ -126,7 +128,7 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady, onViewDetails }
 
         {/* Languages */}
         <div className="mb-6">
-          <h4 className="text-sm font-medium text-slate-400 mb-2">Sprachen</h4>
+          <h4 className="text-sm font-medium text-slate-400 mb-2">{t('ladies.languages')}</h4>
           <div className="flex flex-wrap gap-1">
             {lady.languages.map((language, index) => (
               <span key={index} className="text-slate-300 text-xs">
@@ -146,7 +148,7 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady, onViewDetails }
             }}
             className="w-full font-medium py-3 px-6 rounded-lg border border-slate-600/50 text-slate-300 hover:text-white hover:border-slate-500/50 transition-all duration-300"
           >
-            Profil ansehen
+{t('button.profile')}
           </button>
 
           {/* CTA Button */}
@@ -174,7 +176,7 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady, onViewDetails }
               e.currentTarget.style.boxShadow = '';
             } : undefined}
           >
-            {lady.available ? 'Jetzt buchen' : 'Nicht verfügbar'}
+{lady.available ? t('button.book_now') : t('button.not_available')}
           </button>
         </div>
       </div>
@@ -199,6 +201,7 @@ const LadySelection: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'available'>('all');
   const [showModal, setShowModal] = useState(false);
   const [modalLady, setModalLady] = useState<Lady | null>(null);
+  const { t } = useGlobalLanguage();
 
   const handleSelectLady = (lady: Lady) => {
     console.log('👩 handleSelectLady called with lady:', lady.name, lady.id);
@@ -233,7 +236,7 @@ const LadySelection: React.FC = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-serif text-white mb-4 leading-tight">
-              Elegante
+              {t('ladies.title')}
               <span 
                 className="text-transparent bg-clip-text block"
                 style={{
@@ -242,11 +245,11 @@ const LadySelection: React.FC = () => {
                   backgroundClip: 'text'
                 }}
               >
-                Begleitung
+                {t('ladies.title.highlight')}
               </span>
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
-              Entdecken Sie faszinierende Persönlichkeiten für unvergessliche Momente.
+              {t('ladies.subtitle')}
             </p>
           </div>
 
@@ -267,7 +270,7 @@ const LadySelection: React.FC = () => {
                 onMouseEnter={filter !== 'all' ? (e) => e.currentTarget.style.color = 'var(--color-accent-primary)' : undefined}
                 onMouseLeave={filter !== 'all' ? (e) => e.currentTarget.style.color = 'rgb(203 213 225)' : undefined}
               >
-                Alle Ladies
+                {t('ladies.filter.all')}
               </button>
               <button
                 onClick={() => setFilter('available')}
@@ -283,7 +286,7 @@ const LadySelection: React.FC = () => {
                 onMouseEnter={filter !== 'available' ? (e) => e.currentTarget.style.color = 'var(--color-accent-primary)' : undefined}
                 onMouseLeave={filter !== 'available' ? (e) => e.currentTarget.style.color = 'rgb(203 213 225)' : undefined}
               >
-                Verfügbar
+                {t('ladies.filter.available')}
               </button>
             </div>
           </div>
@@ -306,7 +309,7 @@ const LadySelection: React.FC = () => {
         {filteredLadies.length === 0 && (
           <div className="text-center py-12">
             <p className="text-slate-400 text-lg">
-              Aktuell sind keine Ladies verfügbar.
+              {t('ladies.no_available')}
             </p>
             <button
               onClick={() => setFilter('all')}
@@ -315,7 +318,7 @@ const LadySelection: React.FC = () => {
               onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-light)'}
               onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-accent-primary)'}
             >
-              Alle anzeigen
+              {t('ladies.show_all')}
             </button>
           </div>
         )}
@@ -326,11 +329,10 @@ const LadySelection: React.FC = () => {
         <div className="px-6 py-12">
           <div className="text-center max-w-2xl mx-auto">
             <h3 className="text-2xl font-serif mb-4" style={{ color: 'var(--color-accent-primary)' }}>
-              Persönlichkeit zählt
+              {t('ladies.info.title')}
             </h3>
             <p className="text-slate-300 leading-relaxed">
-              Unsere Ladies zeichnen sich durch Intelligenz, Charme und echtes Interesse 
-              an tiefgreifenden Begegnungen aus. Jede Begleitung ist einzigartig.
+              {t('ladies.info.subtitle')}
             </p>
           </div>
         </div>

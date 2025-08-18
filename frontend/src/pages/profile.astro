@@ -1,12 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProfilePage from '../components/ProfilePage';
-import Navigation from '../components/Navigation';
 ---
 
 <Layout title="Profil - TABU Gentleman's Club">
   <main>
-    <Navigation currentPage="profile" client:load />
     <ProfilePage client:load />
   </main>
 </Layout>

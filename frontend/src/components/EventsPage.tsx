@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { mockEvents } from '../data/mock-data';
 import type { Event } from '../data/mock-data';
 import EventDetailsModal from './EventDetailsModal';
+import Navigation from './Navigation';
 
 interface EventCardProps {
   event: Event;
@@ -287,7 +288,9 @@ const EventsPage: React.FC = () => {
     : mockEvents;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24">
+    <>
+      <Navigation currentPage="events" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24">
       {/* Header Section */}
       <div className="px-6 py-8">
         <div className="max-w-6xl mx-auto">
@@ -414,7 +417,8 @@ const EventsPage: React.FC = () => {
         onRegister={handleJoinEvent}
         userLevel={userLevel}
       />
-    </div>
+      </div>
+    </>
   );
 };
 

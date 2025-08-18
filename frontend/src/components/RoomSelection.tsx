@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { mockRooms } from '../data/mock-data';
 import type { Room } from '../data/mock-data';
+import { useGlobalLanguage } from '../hooks/useGlobalLanguage';
 import RoomDetailsModal from './RoomDetailsModal';
 
 interface RoomCardProps {
@@ -11,12 +12,24 @@ interface RoomCardProps {
 
 const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom, onViewDetails }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { t } = useGlobalLanguage();
+  
+  console.log('🏠 RoomCard rendering for:', room.name, 'imageUrl:', room.imageUrl);
+  
+  // Force show images for debugging
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log('⏰ Force setting imageLoaded to true for:', room.name);
+      setImageLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [room.name]);
 
   const getCategoryLabel = (category: string) => {
     switch (category) {
-      case 'intimate': return 'Intim';
-      case 'luxury': return 'Luxus'; 
-      case 'suite': return 'Suite';
+      case 'intimate': return t('rooms.category.intimate');
+      case 'luxury': return t('rooms.category.luxury'); 
+      case 'suite': return t('rooms.category.suite');
       default: return category;
     }
   };
@@ -58,9 +71,11 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom, onViewDetails }
         <img
           src={room.imageUrl}
           alt={room.name}
-          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
-            imageLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-sm'
-          }`}
+          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 opacity-100`}
+          style={{ 
+            opacity: imageLoaded ? 1 : 0.3,
+            filter: imageLoaded ? 'blur(0px)' : 'blur(2px)'
+          }}
           onLoad={() => {
             console.log('🏠 Room image loaded:', room.name, room.imageUrl);
             setImageLoaded(true);
@@ -131,7 +146,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom, onViewDetails }
             }}
             className="w-full font-medium py-3 px-6 rounded-lg border border-slate-600/50 text-slate-300 hover:text-white hover:border-slate-500/50 transition-all duration-300"
           >
-            Details ansehen
+{t('button.details')}
           </button>
 
           {/* CTA Button */}
@@ -154,7 +169,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom, onViewDetails }
               e.currentTarget.style.boxShadow = '';
             }}
           >
-            Jetzt reservieren
+{t('button.reserve_now')}
           </button>
         </div>
       </div>
@@ -176,6 +191,7 @@ const RoomSelection: React.FC = () => {
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [modalRoom, setModalRoom] = useState<Room | null>(null);
+  const { t } = useGlobalLanguage();
 
   const handleSelectRoom = (room: Room) => {
     console.log('🏠 handleSelectRoom called with room:', room.name, room.id);
@@ -212,7 +228,7 @@ const RoomSelection: React.FC = () => {
         <div className="container mx-auto px-6 py-16">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-serif text-white mb-6 leading-tight">
-              Wählen Sie Ihr
+              {t('rooms.title')}
               <span 
                 className="text-transparent bg-clip-text block"
                 style={{ 
@@ -221,12 +237,11 @@ const RoomSelection: React.FC = () => {
                   backgroundClip: 'text'
                 }}
               >
-                Refugium
+                {t('rooms.title.highlight')}
               </span>
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed">
-              Jeder Raum ist eine Welt für sich – entdecken Sie den perfekten Rahmen 
-              für Ihre ganz besonderen Momente.
+              {t('rooms.subtitle')}
             </p>
           </div>
         </div>
@@ -251,11 +266,10 @@ const RoomSelection: React.FC = () => {
         <div className="container mx-auto px-6 py-12">
           <div className="text-center max-w-2xl mx-auto">
             <h3 className="text-2xl font-serif mb-4" style={{ color: 'var(--color-accent-primary)' }}>
-              Der nächste Schritt
+              {t('rooms.nextstep.title')}
             </h3>
             <p className="text-slate-300 leading-relaxed">
-              Nach der Zimmerauswahl können Sie Ihre perfekte Begleitung wählen 
-              und das Erlebnis ganz nach Ihren Wünschen gestalten.
+              {t('rooms.nextstep.subtitle')}
             </p>
           </div>
         </div>
