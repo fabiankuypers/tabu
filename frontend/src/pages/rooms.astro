@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RoomSelection from '../components/RoomSelection';
+import Navigation from '../components/Navigation';
+---
+
+<Layout title="Zimmer auswählen - TABU Gentleman's Club">
+  <main>
+    <Navigation currentPage="rooms" client:load />
+    <RoomSelection client:load />
+  </main>
+</Layout>

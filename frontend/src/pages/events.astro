@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EventsPage from '../components/EventsPage';
+import Navigation from '../components/Navigation';
+---
+
+<Layout title="Events - TABU Gentleman's Club">
+  <main>
+    <Navigation currentPage="events" client:load />
+    <EventsPage client:load />
+  </main>
+</Layout>

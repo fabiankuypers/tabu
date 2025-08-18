@@ -1,0 +1,227 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* Import Theme System */
+@import "./themes.css";
+
+/* Global Styles for the Gentleman's Club Design System */
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-gradient-main);
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+}
+
+/* Typography Classes */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Smooth transitions for all elements */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-primary-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-dark);
+}
+
+/* Animation Classes */
+@keyframes blur-in {
+  from {
+    filter: blur(8px);
+    opacity: 0;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.blur-in {
+  animation: blur-in 0.7s ease-out;
+}
+
+.fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+.scale-in {
+  animation: scale-in 0.4s ease-out;
+}
+
+/* Glow Effects */
+.glow-accent {
+  box-shadow: 0 0 20px var(--color-accent-glow);
+}
+
+.glow-accent-lg {
+  box-shadow: 0 0 40px var(--color-accent-glow);
+}
+
+.glow-accent-xl {
+  box-shadow: 0 0 60px var(--color-accent-glow);
+}
+
+/* Glass Morphism Effects */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom Button Styles */
+.btn-primary {
+  background: var(--bg-gradient-accent);
+  color: var(--color-text-on-accent);
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: var(--radius-button);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  transform: translateY(0);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-accent);
+  background: var(--color-accent-light);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-accent-primary);
+  border: 2px solid var(--color-accent-border);
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.btn-secondary:hover {
+  background: var(--color-accent-primary);
+  color: var(--color-text-on-accent);
+  transform: translateY(-1px);
+}
+
+/* Text Gradient Effects */
+.text-gradient-accent {
+  background: linear-gradient(135deg, var(--color-accent-primary) 0%, var(--color-accent-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Loading States */
+.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
+/* Dark mode utilities */
+.dark {
+  color-scheme: dark;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
