@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { mockRooms, type Room } from '../data/mock-data';
+import { mockRooms } from '../data/mock-data';
+import type { Room } from '../data/mock-data';
+import RoomDetailsModal from './RoomDetailsModal';
 
 interface RoomCardProps {
   room: Room;
   onSelectRoom: (room: Room) => void;
+  onViewDetails: (room: Room) => void;
 }
 
-const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom }) => {
+const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom, onViewDetails }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const getCategoryLabel = (category: string) => {
@@ -58,7 +61,13 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom }) => {
           className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
             imageLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-sm'
           }`}
-          onLoad={() => setImageLoaded(true)}
+          onLoad={() => {
+            console.log('🏠 Room image loaded:', room.name, room.imageUrl);
+            setImageLoaded(true);
+          }}
+          onError={() => {
+            console.log('❌ Room image failed to load:', room.name, room.imageUrl);
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
         
@@ -112,25 +121,42 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom }) => {
           <span>Premium Ausstattung</span>
         </div>
 
-        {/* CTA Button */}
-        <button
-          onClick={() => onSelectRoom(room)}
-          className="w-full font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-          style={{ 
-            background: 'var(--bg-gradient-accent)',
-            color: 'var(--color-text-on-accent)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--color-accent-light)';
-            e.currentTarget.style.boxShadow = 'var(--shadow-accent)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'var(--bg-gradient-accent)';
-            e.currentTarget.style.boxShadow = '';
-          }}
-        >
-          Details entdecken
-        </button>
+        {/* Action Buttons */}
+        <div className="space-y-3">
+          {/* Details Button */}
+          <button
+            onClick={() => {
+              console.log('🔍 RoomCard Details Button clicked for room:', room.name, room.id);
+              onViewDetails(room);
+            }}
+            className="w-full font-medium py-3 px-6 rounded-lg border border-slate-600/50 text-slate-300 hover:text-white hover:border-slate-500/50 transition-all duration-300"
+          >
+            Details ansehen
+          </button>
+
+          {/* CTA Button */}
+          <button
+            onClick={() => {
+              console.log('🏠 RoomCard Reservieren Button clicked for room:', room.name, room.id);
+              onSelectRoom(room);
+            }}
+            className="w-full font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+            style={{ 
+              background: 'var(--bg-gradient-accent)',
+              color: 'var(--color-text-on-accent)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--color-accent-light)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-accent)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--bg-gradient-accent)';
+              e.currentTarget.style.boxShadow = '';
+            }}
+          >
+            Jetzt reservieren
+          </button>
+        </div>
       </div>
 
       {/* Hover Glow Effect */}
@@ -148,11 +174,29 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom }) => {
 
 const RoomSelection: React.FC = () => {
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalRoom, setModalRoom] = useState<Room | null>(null);
 
   const handleSelectRoom = (room: Room) => {
+    console.log('🏠 handleSelectRoom called with room:', room.name, room.id);
     setSelectedRoom(room);
-    // Here you would typically navigate to a detailed view or next step
-    console.log('Selected room:', room);
+    console.log('🏠 Selected room state updated');
+    // Close modal if open
+    setShowModal(false);
+    console.log('🏠 Modal closed');
+  };
+
+  const handleViewDetails = (room: Room) => {
+    console.log('🔍 handleViewDetails called with room:', room.name, room.id);
+    setModalRoom(room);
+    console.log('🔍 Modal room state set');
+    setShowModal(true);
+    console.log('🔍 Modal show state set to true');
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setModalRoom(null);
   };
 
   return (
@@ -196,6 +240,7 @@ const RoomSelection: React.FC = () => {
               key={room.id}
               room={room}
               onSelectRoom={handleSelectRoom}
+              onViewDetails={handleViewDetails}
             />
           ))}
         </div>
@@ -215,6 +260,14 @@ const RoomSelection: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Room Details Modal */}
+      <RoomDetailsModal
+        room={modalRoom}
+        isOpen={showModal}
+        onClose={closeModal}
+        onBook={handleSelectRoom}
+      />
     </div>
   );
 };

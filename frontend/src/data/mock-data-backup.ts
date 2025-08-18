@@ -122,93 +122,31 @@ export const mockLadies: Lady[] = [
     id: "1",
     name: "Isabella",
     description: "Elegante Kunsthistorikerin mit einer Leidenschaft für tiefgreifende Gespräche und klassische Musik.",
-    imageUrl: "/ladies/Isabella.webp",
-    galleryImages: [
-      "/ladies/Isabella.webp",
-      "/ladies/sophie.webp",
-      "/ladies/victoria.webp",
-      "/ladies/Vanessa.webp"
-    ],
-    age: 25,
-    height: "168 cm",
+    imageUrl: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=500&fit=crop&crop=face",
     personality: ["Intelligent", "Einfühlsam", "Kultiviert", "Humorvoll"],
     interests: ["Kunstgeschichte", "Opern", "Literatur", "Weinverkostung"],
     languages: ["Deutsch", "Englisch", "Französisch", "Italienisch"],
-    specialties: ["Intellektuelle Gespräche", "Kunstkenntnis", "Kulturelle Events", "Dinner Dates"],
-    pricePerHour: 450,
-    available: true,
-    location: "Wien",
-    aboutMe: "Mit einer Leidenschaft für die schönen Künste und einem Gespür für Eleganz bringe ich Tiefe und Authentizität in jede Begegnung.",
-    services: ["Dinner Dates", "Cultural Events", "Business Functions", "Travel Companion", "Private Parties", "Art Gallery Visits"]
+    available: true
   },
   {
     id: "2", 
     name: "Sophie",
     description: "Weltgewandte Tänzerin mit einer magnetischen Ausstrahlung und einem Gespür für die schönen Dinge des Lebens.",
-    imageUrl: "/ladies/sophie.webp",
-    galleryImages: [
-      "/ladies/sophie.webp",
-      "/ladies/Isabella.webp",
-      "/ladies/Vanessa.webp",
-      "/ladies/victoria.webp"
-    ],
-    age: 23,
-    height: "172 cm",
+    imageUrl: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=500&fit=crop&crop=face",
     personality: ["Lebhaft", "Charmant", "Kreativ", "Abenteuerlustig"],
     interests: ["Ballett", "Reisen", "Fotografie", "Gourmet-Küche"],
     languages: ["Deutsch", "Englisch", "Spanisch"],
-    specialties: ["Tanz", "Künstlerische Performance", "Reisebegleitung", "Event-Entertainment"],
-    pricePerHour: 380,
-    available: true,
-    location: "Wien",
-    aboutMe: "Als professionelle Tänzerin bringe ich Grazie und Leidenschaft in jeden Moment. Ich liebe es, neue Kulturen zu entdecken und unvergessliche Erlebnisse zu schaffen.",
-    services: ["Dance Performances", "Travel Companion", "Cultural Events", "Private Shows", "Dinner Dates", "Theatre & Opera"]
+    available: true
   },
   {
     id: "3",
     name: "Victoria", 
-    description: "Erfolgreiche Geschäftsfrau mit einem Faible für Luxus und einer natürlichen Eleganz, die jeden Raum erhellt.",
-    imageUrl: "/ladies/victoria.webp",
-    galleryImages: [
-      "/ladies/victoria.webp",
-      "/ladies/Vanessa.webp",
-      "/ladies/Isabella.webp",
-      "/ladies/sophie.webp"
-    ],
-    age: 28,
-    height: "175 cm",
+    description: "Erfolgreiche Geschäfrau mit einem Faible für Luxus und einer natürlichen Eleganz, die jeden Raum erhellt.",
+    imageUrl: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=500&fit=crop&crop=face",
     personality: ["Selbstbewusst", "Raffiniert", "Witzig", "Warmherzig"],
     interests: ["Business", "Mode", "Yacht-Segeln", "Meditation"],
     languages: ["Deutsch", "Englisch", "Russisch"],
-    specialties: ["Business Events", "High-Society", "Luxus-Lifestyle", "Networking"],
-    pricePerHour: 550,
-    available: false,
-    location: "Wien",
-    aboutMe: "Als erfolgreiche Unternehmerin verstehe ich die Anforderungen anspruchsvoller Klientel. Ich begleite Sie souverän durch die Welt des Luxus und der High Society.",
-    services: ["Business Functions", "High Society Events", "Yacht Parties", "VIP Networking", "Luxury Travel", "Corporate Entertainment"]
-  },
-  {
-    id: "4",
-    name: "Vanessa", 
-    description: "Mysteriöse Schönheit mit einer Vorliebe für aufregende Begegnungen und tiefe Verbindungen.",
-    imageUrl: "/ladies/Vanessa.webp",
-    galleryImages: [
-      "/ladies/Vanessa.webp",
-      "/ladies/sophie.webp",
-      "/ladies/victoria.webp",
-      "/ladies/Isabella.webp"
-    ],
-    age: 26,
-    height: "170 cm",
-    personality: ["Mysteriös", "Sinnlich", "Aufmerksam", "Leidenschaftlich"],
-    interests: ["Yoga", "Spiritualität", "Tanz", "Sterne beobachten"],
-    languages: ["Deutsch", "Englisch", "Französisch"],
-    specialties: ["Entspannung", "Sinnliche Massagen", "Spirituelle Gespräche", "Intimität"],
-    pricePerHour: 420,
-    available: true,
-    location: "Wien",
-    aboutMe: "Ich glaube an die Kraft echter Verbindungen und die Schönheit des Moments. Mit mir erleben Sie pure Authentizität und tiefe Entspannung.",
-    services: ["Massage", "Spiritual Guidance", "Intimate Conversations", "Yoga Sessions", "Meditation", "Stargazing"]
+    available: false
   }
 ];
 

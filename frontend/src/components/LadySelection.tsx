@@ -1,13 +1,27 @@
 import React, { useState } from 'react';
-import { mockLadies, type Lady } from '../data/mock-data';
+import { mockLadies } from '../data/mock-data';
+import type { Lady } from '../data/mock-data';
+import LadyDetailsModal from './LadyDetailsModal';
 
 interface LadyCardProps {
   lady: Lady;
   onSelectLady: (lady: Lady) => void;
+  onViewDetails: (lady: Lady) => void;
 }
 
-const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady }) => {
+const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady, onViewDetails }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  
+  console.log('👩 LadyCard rendering for:', lady.name, 'imageUrl:', lady.imageUrl);
+  
+  // Force show images for debugging
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log('⏰ Force setting imageLoaded to true for:', lady.name);
+      setImageLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [lady.name]);
 
   return (
     <div 
@@ -28,7 +42,7 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady }) => {
             ? 'bg-green-500/90 text-white' 
             : 'bg-red-500/90 text-white'
         }`}>
-          {lady.available ? 'Verfügbar' : 'Beschäftigt'}
+          {lady.available ? 'Verfügbar' : 'Ausgebucht'}
         </span>
       </div>
 
@@ -37,10 +51,18 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady }) => {
         <img
           src={lady.imageUrl}
           alt={lady.name}
-          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
-            imageLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-sm'
-          }`}
-          onLoad={() => setImageLoaded(true)}
+          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 opacity-100`}
+          style={{ 
+            opacity: imageLoaded ? 1 : 0.3,
+            filter: imageLoaded ? 'blur(0px)' : 'blur(2px)'
+          }}
+          onLoad={() => {
+            console.log('👩 Lady image loaded:', lady.name, lady.imageUrl);
+            setImageLoaded(true);
+          }}
+          onError={() => {
+            console.log('❌ Lady image failed to load:', lady.name, lady.imageUrl);
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
       </div>
@@ -114,30 +136,47 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady }) => {
           </div>
         </div>
 
-        {/* CTA Button */}
-        <button
-          onClick={() => onSelectLady(lady)}
-          disabled={!lady.available}
-          className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform ${
-            lady.available
-              ? 'hover:scale-105 hover:shadow-lg'
-              : 'bg-slate-700 text-slate-500 cursor-not-allowed'
-          }`}
-          style={lady.available ? {
-            backgroundColor: 'var(--color-accent-primary)',
-            color: 'var(--color-text-on-accent)'
-          } : {}}
-          onMouseEnter={lady.available ? (e) => {
-            e.currentTarget.style.backgroundColor = 'var(--color-accent-light)';
-            e.currentTarget.style.boxShadow = 'var(--shadow-accent)';
-          } : undefined}
-          onMouseLeave={lady.available ? (e) => {
-            e.currentTarget.style.backgroundColor = 'var(--color-accent-primary)';
-            e.currentTarget.style.boxShadow = '';
-          } : undefined}
-        >
-          {lady.available ? 'Profil ansehen' : 'Nicht verfügbar'}
-        </button>
+        {/* Action Buttons */}
+        <div className="space-y-3">
+          {/* Details Button */}
+          <button
+            onClick={() => {
+              console.log('👩 LadyCard Details Button clicked for lady:', lady.name, lady.id);
+              onViewDetails(lady);
+            }}
+            className="w-full font-medium py-3 px-6 rounded-lg border border-slate-600/50 text-slate-300 hover:text-white hover:border-slate-500/50 transition-all duration-300"
+          >
+            Profil ansehen
+          </button>
+
+          {/* CTA Button */}
+          <button
+            onClick={() => {
+              console.log('👩 LadyCard Buchen Button clicked for lady:', lady.name, lady.id, 'Available:', lady.available);
+              onSelectLady(lady);
+            }}
+            disabled={!lady.available}
+            className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform ${
+              lady.available
+                ? 'hover:scale-105 hover:shadow-lg'
+                : 'bg-slate-700 text-slate-500 cursor-not-allowed'
+            }`}
+            style={lady.available ? {
+              backgroundColor: 'var(--color-accent-primary)',
+              color: 'var(--color-text-on-accent)'
+            } : {}}
+            onMouseEnter={lady.available ? (e) => {
+              e.currentTarget.style.backgroundColor = 'var(--color-accent-light)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-accent)';
+            } : undefined}
+            onMouseLeave={lady.available ? (e) => {
+              e.currentTarget.style.backgroundColor = 'var(--color-accent-primary)';
+              e.currentTarget.style.boxShadow = '';
+            } : undefined}
+          >
+            {lady.available ? 'Jetzt buchen' : 'Nicht verfügbar'}
+          </button>
+        </div>
       </div>
 
       {/* Hover Glow Effect */}
@@ -158,10 +197,29 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady }) => {
 const LadySelection: React.FC = () => {
   const [selectedLady, setSelectedLady] = useState<Lady | null>(null);
   const [filter, setFilter] = useState<'all' | 'available'>('all');
+  const [showModal, setShowModal] = useState(false);
+  const [modalLady, setModalLady] = useState<Lady | null>(null);
 
   const handleSelectLady = (lady: Lady) => {
+    console.log('👩 handleSelectLady called with lady:', lady.name, lady.id);
     setSelectedLady(lady);
-    console.log('Selected lady:', lady);
+    console.log('👩 Selected lady state updated');
+    // Close modal if open
+    setShowModal(false);
+    console.log('👩 Modal closed');
+  };
+
+  const handleViewDetails = (lady: Lady) => {
+    console.log('🔍 handleViewDetails called with lady:', lady.name, lady.id);
+    setModalLady(lady);
+    console.log('🔍 Modal lady state set');
+    setShowModal(true);
+    console.log('🔍 Modal show state set to true');
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setModalLady(null);
   };
 
   const filteredLadies = filter === 'available' 
@@ -240,6 +298,7 @@ const LadySelection: React.FC = () => {
               key={lady.id}
               lady={lady}
               onSelectLady={handleSelectLady}
+              onViewDetails={handleViewDetails}
             />
           ))}
         </div>
@@ -276,6 +335,14 @@ const LadySelection: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Lady Details Modal */}
+      <LadyDetailsModal
+        lady={modalLady}
+        isOpen={showModal}
+        onClose={closeModal}
+        onBook={handleSelectLady}
+      />
     </div>
   );
 };

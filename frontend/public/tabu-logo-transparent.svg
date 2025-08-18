@@ -1,0 +1,14 @@
+<svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- TABU Text -->
+  <text x="2" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="currentColor">tabu</text>
+  
+  <!-- Lips Icon -->
+  <g transform="translate(90, 5)">
+    <!-- Upper lip -->
+    <path d="M5 15 Q10 10 15 12 Q20 10 25 15 Q20 20 15 18 Q10 20 5 15 Z" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/>
+    <!-- Lower lip -->
+    <path d="M5 15 Q10 25 15 22 Q20 25 25 15 Q20 18 15 18 Q10 18 5 15 Z" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/>
+    <!-- Highlight -->
+    <ellipse cx="15" cy="16" rx="3" ry="1" fill="#f87171" opacity="0.6"/>
+  </g>
+</svg>

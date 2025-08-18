@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { mockEvents, type Event } from '../data/mock-data';
+import { mockEvents } from '../data/mock-data';
+import type { Event } from '../data/mock-data';
+import EventDetailsModal from './EventDetailsModal';
 
 interface EventCardProps {
   event: Event;
   userLevel?: number;
   onJoinEvent: (event: Event) => void;
+  onViewDetails: (event: Event) => void;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event, userLevel = 1, onJoinEvent }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, userLevel = 1, onJoinEvent, onViewDetails }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   
   const isAccessible = userLevel >= event.level;
@@ -110,7 +113,13 @@ const EventCard: React.FC<EventCardProps> = ({ event, userLevel = 1, onJoinEvent
           className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
             imageLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-sm'
           }`}
-          onLoad={() => setImageLoaded(true)}
+          onLoad={() => {
+            console.log('🎉 Event image loaded:', event.title, event.imageUrl);
+            setImageLoaded(true);
+          }}
+          onError={() => {
+            console.log('❌ Event image failed to load:', event.title, event.imageUrl);
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
         
@@ -181,35 +190,52 @@ const EventCard: React.FC<EventCardProps> = ({ event, userLevel = 1, onJoinEvent
           </div>
         </div>
 
-        {/* CTA Button */}
-        <button
-          onClick={() => onJoinEvent(event)}
-          disabled={!isAccessible || isFull}
-          className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform ${
-            isAccessible && !isFull
-              ? 'hover:scale-105 hover:shadow-lg'
-              : 'bg-slate-700 text-slate-500 cursor-not-allowed'
-          }`}
-          style={isAccessible && !isFull ? {
-            backgroundColor: 'var(--color-accent-primary)',
-            color: 'var(--color-text-on-accent)'
-          } : {}}
-          onMouseEnter={isAccessible && !isFull ? (e) => {
-            e.currentTarget.style.backgroundColor = 'var(--color-accent-light)';
-            e.currentTarget.style.boxShadow = 'var(--shadow-accent)';
-          } : undefined}
-          onMouseLeave={isAccessible && !isFull ? (e) => {
-            e.currentTarget.style.backgroundColor = 'var(--color-accent-primary)';
-            e.currentTarget.style.boxShadow = '';
-          } : undefined}
-        >
-          {!isAccessible 
-            ? 'Level erforderlich'
-            : isFull 
-              ? 'Ausgebucht' 
-              : 'Anmelden'
-          }
-        </button>
+        {/* Action Buttons */}
+        <div className="space-y-3">
+          {/* Details Button */}
+          <button
+            onClick={() => {
+              console.log('🎉 EventCard Details Button clicked for event:', event.title, event.id);
+              onViewDetails(event);
+            }}
+            className="w-full font-medium py-3 px-6 rounded-lg border border-slate-600/50 text-slate-300 hover:text-white hover:border-slate-500/50 transition-all duration-300"
+          >
+            Details ansehen
+          </button>
+
+          {/* CTA Button */}
+          <button
+            onClick={() => {
+              console.log('🎉 EventCard Anmelden Button clicked for event:', event.title, event.id, 'Accessible:', isAccessible, 'Full:', isFull);
+              onJoinEvent(event);
+            }}
+            disabled={!isAccessible || isFull}
+            className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform ${
+              isAccessible && !isFull
+                ? 'hover:scale-105 hover:shadow-lg'
+                : 'bg-slate-700 text-slate-500 cursor-not-allowed'
+            }`}
+            style={isAccessible && !isFull ? {
+              backgroundColor: 'var(--color-accent-primary)',
+              color: 'var(--color-text-on-accent)'
+            } : {}}
+            onMouseEnter={isAccessible && !isFull ? (e) => {
+              e.currentTarget.style.backgroundColor = 'var(--color-accent-light)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-accent)';
+            } : undefined}
+            onMouseLeave={isAccessible && !isFull ? (e) => {
+              e.currentTarget.style.backgroundColor = 'var(--color-accent-primary)';
+              e.currentTarget.style.boxShadow = '';
+            } : undefined}
+          >
+            {!isAccessible 
+              ? 'Level erforderlich'
+              : isFull 
+                ? 'Ausgebucht' 
+                : 'Anmelden'
+            }
+          </button>
+        </div>
       </div>
 
       {/* Hover Glow Effect */}
@@ -231,10 +257,29 @@ const EventsPage: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [userLevel, setUserLevel] = useState(2); // Simulated user level
   const [filter, setFilter] = useState<'all' | 'accessible'>('all');
+  const [showModal, setShowModal] = useState(false);
+  const [modalEvent, setModalEvent] = useState<Event | null>(null);
 
   const handleJoinEvent = (event: Event) => {
+    console.log('🎉 handleJoinEvent called with event:', event.title, event.id);
     setSelectedEvent(event);
-    console.log('Joining event:', event);
+    console.log('🎉 Selected event state updated');
+    // Close modal if open
+    setShowModal(false);
+    console.log('🎉 Modal closed');
+  };
+
+  const handleViewDetails = (event: Event) => {
+    console.log('🔍 handleViewDetails called with event:', event.title, event.id);
+    setModalEvent(event);
+    console.log('🔍 Modal event state set');
+    setShowModal(true);
+    console.log('🔍 Modal show state set to true');
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setModalEvent(null);
   };
 
   const filteredEvents = filter === 'accessible' 
@@ -323,6 +368,7 @@ const EventsPage: React.FC = () => {
               event={event}
               userLevel={userLevel}
               onJoinEvent={handleJoinEvent}
+              onViewDetails={handleViewDetails}
             />
           ))}
         </div>
@@ -359,6 +405,15 @@ const EventsPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Event Details Modal */}
+      <EventDetailsModal
+        event={modalEvent}
+        isOpen={showModal}
+        onClose={closeModal}
+        onRegister={handleJoinEvent}
+        userLevel={userLevel}
+      />
     </div>
   );
 };
