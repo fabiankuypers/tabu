@@ -40,14 +40,7 @@ import '../styles/global.css';
 </html>
 
 <style is:global>
-  :root {
-    --color-primary: #D4AF37;
-    --color-primary-dark: #B8941F;
-    --color-dark: #1a1a2e;
-    --color-dark-lighter: #16213e;
-    --font-serif: 'Playfair Display', serif;
-    --font-sans: 'Inter', system-ui, sans-serif;
-  }
+  /* Theme variables are now loaded from themes.css - no override needed */
 
   html {
     font-family: var(--font-sans);
@@ -56,7 +49,7 @@ import '../styles/global.css';
   
   body {
     margin: 0;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    background: var(--bg-gradient-main);
     min-height: 100vh;
   }
 
@@ -90,16 +83,16 @@ import '../styles/global.css';
   }
 
   ::-webkit-scrollbar-track {
-    background: #1e293b;
+    background: var(--color-primary-surface);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #D4AF37;
+    background: var(--color-accent-primary);
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #B8941F;
+    background: var(--color-accent-dark);
   }
 
   /* Blur loading animation */
@@ -120,11 +113,11 @@ import '../styles/global.css';
 
   /* Glow effects */
   .glow-amber {
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    box-shadow: var(--shadow-accent);
   }
 
   .glow-amber-lg {
-    box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+    box-shadow: var(--shadow-accent-lg);
   }
 
   /* Shimmer animation */
@@ -139,10 +132,10 @@ import '../styles/global.css';
 
   /* Luxury glass morphism */
   .glass-effect-dark {
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color-subtle);
   }
 
   .glass-effect-light {
@@ -164,10 +157,10 @@ import '../styles/global.css';
 
   /* Luxury text effects */
   .text-luxury {
-    background: linear-gradient(135deg, #d4af37, #e6c866, #d4af37);
+    background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-light), var(--color-accent-primary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    text-shadow: 0 0 30px var(--color-accent-glow);
   }
 </style>

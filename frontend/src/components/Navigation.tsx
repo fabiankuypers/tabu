@@ -63,10 +63,9 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage = 'rooms' }) => {
           {/* Logo */}
           <div className="flex items-center">
             <img 
-              src="/tabu-logo-transparent.svg" 
+              src="/tabu-logo.jpg" 
               alt="TABU" 
-              className="h-8 w-auto"
-              style={{ filter: 'brightness(0) saturate(100%) invert(100%)' }}
+              className="h-10 w-auto rounded-2xl"
             />
           </div>
 

@@ -84,7 +84,7 @@ const HomePage: React.FC = () => {
           >
             <source src={videos[currentVideoIndex]} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
         </div>
 
         {/* Hero Content */}
@@ -162,7 +162,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Current Events Section */}
-      <section className="py-20 bg-slate-900">
+      <section className="py-20 bg-black">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
@@ -188,7 +188,7 @@ const HomePage: React.FC = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {mockEvents.slice(0, 3).map((event) => (
-              <div key={event.id} className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
+              <div key={event.id} className="bg-gray-900/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800/50 transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
                 <div className="relative h-48">
                   <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
@@ -238,7 +238,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-800">
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-serif text-white mb-6">
@@ -249,7 +249,7 @@ const HomePage: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="text-center">
-                <div className="bg-slate-800/30 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/30 hover:border-slate-600/50 transition-all duration-500">
+                <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800/40 hover:border-gray-700/60 transition-all duration-500">
                   <div className="mb-6">
                     <svg className="w-8 h-8 mx-auto" style={{ color: 'var(--color-accent-primary)' }} fill="currentColor" viewBox="0 0 24 24">
                       <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
@@ -269,7 +269,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-slate-800">
+      <section className="py-16 bg-gray-900">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-serif text-white mb-4">
             {language === 'de' ? 'Bereit für Ihr exklusives Erlebnis?' : 'Ready for Your Exclusive Experience?'}
@@ -302,7 +302,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Ladies Preview Section */}
-      <section className="py-20 bg-slate-900">
+      <section className="py-20 bg-black">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
@@ -364,7 +364,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Rooms Section */}
-      <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-800">
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-serif text-white mb-6">
             {language === 'de' ? 'Exklusive Räumlichkeiten' : 'Exclusive Rooms'}
@@ -392,7 +392,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-slate-800">
+      <section className="py-20 bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-serif text-white mb-6">
@@ -408,7 +408,7 @@ const HomePage: React.FC = () => {
 
           <div className="max-w-4xl mx-auto space-y-6">
             {faqs.map((faq, index) => (
-              <details key={index} className="group bg-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/50 overflow-hidden">
+              <details key={index} className="group bg-black/60 backdrop-blur-sm rounded-xl border border-gray-800/50 overflow-hidden">
                 <summary className="flex justify-between items-center p-6 cursor-pointer list-none">
                   <h3 className="text-lg font-medium text-white group-open:text-accent-primary transition-colors">
                     {faq.question}
@@ -427,14 +427,13 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black/90 text-white py-16">
+      <footer className="bg-black text-white py-16">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8">
             {/* Logo & Description */}
             <div className="md:col-span-2">
               <div className="flex items-center mb-6">
-                <img src="/tabu-logo-transparent.svg" alt="TABU" className="h-12 w-auto mr-4" />
-                <h3 className="text-2xl font-serif" style={{ color: 'var(--color-accent-primary)' }}>TABU</h3>
+                <img src="/tabu-logo.jpg" alt="TABU" className="h-16 w-auto rounded-2xl" />
               </div>
               <p className="text-slate-300 leading-relaxed mb-6">
                 {language === 'de'

@@ -33,7 +33,9 @@ const LanguageToggle: React.FC = () => {
             style={language === lang.code ? {
               backgroundColor: 'var(--color-accent-muted)',
               color: 'var(--color-accent-primary)'
-            } : {}}
+            } : {
+              color: 'white'
+            }}
           >
             <span className="text-lg">{lang.flag}</span>
             <span className="text-sm font-medium hidden sm:inline">

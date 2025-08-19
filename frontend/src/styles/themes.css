@@ -1,12 +1,12 @@
 /* TABU Theme System - Flexible Design Variables */
 
-/* Default Theme: Luxury Dark Gold */
+/* Default Theme: Luxury Black Gold */
 :root {
   /* === PRIMARY COLORS === */
-  --color-primary-bg: #1a1a1a;
-  --color-primary-surface: #2a2a2a;
-  --color-primary-surface-light: #3a3a3a;
-  --color-primary-surface-hover: #404040;
+  --color-primary-bg: #000000;
+  --color-primary-surface: #111111;
+  --color-primary-surface-light: #1a1a1a;
+  --color-primary-surface-hover: #222222;
   
   /* === ACCENT COLORS === */
   --color-accent-primary: #d4af37;
@@ -24,8 +24,8 @@
   --color-text-on-accent: #1a1a1a;
   
   /* === BACKGROUND GRADIENTS === */
-  --bg-gradient-main: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  --bg-gradient-card: linear-gradient(135deg, rgba(42, 42, 42, 0.8) 0%, rgba(58, 58, 58, 0.6) 100%);
+  --bg-gradient-main: linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%);
+  --bg-gradient-card: linear-gradient(135deg, rgba(17, 17, 17, 0.9) 0%, rgba(26, 26, 26, 0.7) 100%);
   --bg-gradient-accent: linear-gradient(135deg, var(--color-accent-primary) 0%, var(--color-accent-dark) 100%);
   
   /* === BORDER & SHADOW === */
