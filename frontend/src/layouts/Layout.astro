@@ -11,7 +11,7 @@ import '../styles/global.css';
 ---
 
 <!DOCTYPE html>
-<html lang="de" class="dark">
+<html lang="de" class="dark bg-black">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -34,7 +34,7 @@ import '../styles/global.css';
     
     <title>{title}</title>
   </head>
-  <body class="bg-primary text-primary antialiased">
+  <body class="bg-black text-white antialiased">
     <slot />
   </body>
 </html>
@@ -45,11 +45,12 @@ import '../styles/global.css';
   html {
     font-family: var(--font-sans);
     scroll-behavior: smooth;
+    background: #000000 !important;
   }
   
   body {
     margin: 0;
-    background: var(--bg-gradient-main);
+    background: #000000 !important;
     min-height: 100vh;
   }
 
