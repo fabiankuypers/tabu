@@ -4,10 +4,10 @@ import LadySelection from './LadySelection';
 
 const LadiesPage: React.FC = () => {
   return (
-    <>
+    <div className="pb-20">
       <Navigation currentPage="ladies" />
       <LadySelection />
-    </>
+    </div>
   );
 };
 

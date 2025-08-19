@@ -66,7 +66,7 @@ const HomePage: React.FC = () => {
   ];
 
   return (
-    <>
+    <div className="pb-20">
       <Navigation currentPage="home" />
       
       {/* Hero Section with Video Background */}
@@ -488,7 +488,7 @@ const HomePage: React.FC = () => {
         isOpen={showBookingModal}
         onClose={() => setShowBookingModal(false)}
       />
-    </>
+    </div>
   );
 };
 

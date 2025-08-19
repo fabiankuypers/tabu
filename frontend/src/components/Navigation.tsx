@@ -62,11 +62,13 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage = 'rooms' }) => {
         <div className="flex items-center justify-between px-6 py-4">
           {/* Logo */}
           <div className="flex items-center">
-            <img 
-              src="/tabu-logo.jpg" 
-              alt="TABU" 
-              className="h-10 w-auto rounded-2xl"
-            />
+            <a href="/" className="cursor-pointer">
+              <img 
+                src="/tabu-logo.jpg" 
+                alt="TABU" 
+                className="h-10 w-auto rounded-2xl transition-transform duration-300 hover:scale-105"
+              />
+            </a>
           </div>
 
           {/* Right Side - Language Toggle + Theme Selector + Notifications */}

@@ -4,10 +4,10 @@ import RoomSelection from './RoomSelection';
 
 const RoomsPage: React.FC = () => {
   return (
-    <>
+    <div className="pb-20">
       <Navigation currentPage="rooms" />
       <RoomSelection />
-    </>
+    </div>
   );
 };
 

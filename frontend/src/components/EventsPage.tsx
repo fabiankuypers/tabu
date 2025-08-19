@@ -288,7 +288,7 @@ const EventsPage: React.FC = () => {
     : mockEvents;
 
   return (
-    <>
+    <div className="pb-20">
       <Navigation currentPage="events" />
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24">
       {/* Header Section */}
@@ -418,7 +418,7 @@ const EventsPage: React.FC = () => {
         userLevel={userLevel}
       />
       </div>
-    </>
+    </div>
   );
 };
 
