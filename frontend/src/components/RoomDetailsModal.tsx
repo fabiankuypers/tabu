@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { Room } from '../data/mock-data';
+import { useGlobalLanguage } from '../hooks/useGlobalLanguage';
 
 interface RoomDetailsModalProps {
   room: Room | null;
@@ -15,6 +16,7 @@ const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
   onBook
 }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const { t, language } = useGlobalLanguage();
 
   // Close modal on escape key
   useEffect(() => {
@@ -54,9 +56,9 @@ const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
 
   const getCategoryLabel = (category: string) => {
     switch (category) {
-      case 'intimate': return 'Intimer Bereich';
-      case 'luxury': return 'Luxus-Suite';
-      case 'suite': return 'Premium-Suite';
+      case 'intimate': return t('rooms.category.intimate');
+      case 'luxury': return t('rooms.category.luxury');
+      case 'suite': return t('rooms.category.suite');
       default: return category;
     }
   };
@@ -127,11 +129,11 @@ const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                 {room.name}
               </h1>
               <div className="flex items-center gap-4 text-slate-200">
-                <span>Bis zu {room.maxGuests} Gäste</span>
+                <span>{t('modal.max_guests').replace('Maximale', 'Bis zu')} {room.maxGuests} {t('modal.persons')}</span>
                 <span>•</span>
-                <span>65 m²</span>
+                <span>{room.size || '65 m²'}</span>
                 <span>•</span>
-                <span>2. Etage</span>
+                <span>{room.location}</span>
               </div>
             </div>
           </div>
@@ -171,7 +173,7 @@ const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                 {/* Description */}
                 <div>
                   <h2 className="text-2xl font-serif mb-4" style={{ color: 'var(--color-accent-primary)' }}>
-                    Über diesen Raum
+                    {t('modal.about_room')}
                   </h2>
                   <p className="text-slate-300 leading-relaxed text-lg">
                     {room.description}
@@ -181,7 +183,7 @@ const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                 {/* Room Features */}
                 <div>
                   <h3 className="text-xl font-serif mb-4" style={{ color: 'var(--color-accent-primary)' }}>
-                    Ausstattung
+                    {t('modal.equipment')}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {room.features.map((feature, index) => (
@@ -198,7 +200,7 @@ const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                 {/* Amenities */}
                 <div>
                   <h3 className="text-xl font-serif mb-4" style={{ color: 'var(--color-accent-primary)' }}>
-                    Premium-Annehmlichkeiten
+                    {t('modal.amenities')}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {room.amenities.map((amenity, index) => (
@@ -215,7 +217,7 @@ const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                 {/* Mood Tags */}
                 <div>
                   <h3 className="text-xl font-serif mb-4" style={{ color: 'var(--color-accent-primary)' }}>
-                    Atmosphäre
+                    {t('modal.atmosphere')}
                   </h3>
                   <div className="flex flex-wrap gap-3">
                     {room.mood.map((mood, index) => (
@@ -244,25 +246,25 @@ const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                     <div className="text-3xl font-bold text-white mb-2">
                       {formatPrice(room.pricePerHour)}
                     </div>
-                    <div className="text-slate-400">pro Stunde</div>
+                    <div className="text-slate-400">{t('modal.per_hour')}</div>
                   </div>
 
                   {/* Quick Info */}
                   <div className="space-y-3 mb-6 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Kategorie</span>
+                      <span className="text-slate-400">{t('modal.category')}</span>
                       <span className="text-slate-300">{getCategoryLabel(room.category)}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Maximale Gäste</span>
-                      <span className="text-slate-300">{room.maxGuests} Personen</span>
+                      <span className="text-slate-400">{t('modal.max_guests')}</span>
+                      <span className="text-slate-300">{room.maxGuests} {t('modal.persons')}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Größe</span>
+                      <span className="text-slate-400">{t('modal.size')}</span>
                       <span className="text-slate-300">{room.size}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Lage</span>
+                      <span className="text-slate-400">{t('modal.location')}</span>
                       <span className="text-slate-300">{room.location}</span>
                     </div>
                   </div>
@@ -287,10 +289,10 @@ const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                       </svg>
                       <span className="text-sm">
                         {room.availability === 'available'
-                          ? 'Aktuell verfügbar'
+                          ? t('status.currently_available')
                           : room.availability === 'booked'
-                            ? 'Ausgebucht'
-                            : 'Wartung'
+                            ? t('status.booked')
+                            : t('status.maintenance')
                         }
                       </span>
                     </div>
@@ -312,18 +314,18 @@ const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                       e.currentTarget.style.boxShadow = 'var(--shadow-accent)';
                     }}
                   >
-                    Jetzt reservieren
+                    {t('button.reserve_now')}
                   </button>
 
                   <p className="text-center text-slate-400 text-sm mt-4">
-                    Sofortige Bestätigung • Diskret • Sicher
+                    {t('modal.confirmation')}
                   </p>
 
                   {/* Contact */}
                   <div className="mt-6 pt-6 border-t border-slate-700/50 text-center">
-                    <p className="text-slate-400 text-sm mb-2">Haben Sie Fragen?</p>
+                    <p className="text-slate-400 text-sm mb-2">{t('modal.questions')}</p>
                     <button className="text-accent-primary hover:text-accent-light transition-colors text-sm font-medium">
-                      Concierge kontaktieren
+                      {t('modal.contact_concierge')}
                     </button>
                   </div>
                 </div>

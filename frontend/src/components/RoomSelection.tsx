@@ -216,17 +216,11 @@ const RoomSelection: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24">
+    <div className="min-h-screen bg-black pt-20 pb-24">
       {/* Header Section */}
-      <div className="relative overflow-hidden">
-        <div 
-          className="absolute inset-0"
-          style={{ 
-            background: `linear-gradient(to right, var(--color-accent-muted), transparent, var(--color-accent-muted))`
-          }}
-        ></div>
-        <div className="container mx-auto px-6 py-16">
-          <div className="text-center max-w-4xl mx-auto">
+      <section className="py-20 bg-black">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16 max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-serif text-white mb-6 leading-tight">
               {t('rooms.title')}
               <span 
@@ -245,11 +239,12 @@ const RoomSelection: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Rooms Grid */}
-      <div className="container mx-auto px-6 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {mockRooms.map((room) => (
             <RoomCard
               key={room.id}
@@ -258,13 +253,14 @@ const RoomSelection: React.FC = () => {
               onViewDetails={handleViewDetails}
             />
           ))}
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Bottom Section - Experience Hint */}
-      <div className="border-t border-slate-800/50">
-        <div className="container mx-auto px-6 py-12">
-          <div className="text-center max-w-2xl mx-auto">
+      <section className="py-16 bg-gray-900">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-2xl mx-auto">
             <h3 className="text-2xl font-serif mb-4" style={{ color: 'var(--color-accent-primary)' }}>
               {t('rooms.nextstep.title')}
             </h3>
@@ -273,7 +269,7 @@ const RoomSelection: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Room Details Modal */}
       <RoomDetailsModal

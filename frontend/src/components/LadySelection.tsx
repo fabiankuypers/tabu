@@ -49,7 +49,7 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady, onViewDetails }
       </div>
 
       {/* Image Container */}
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative aspect-[3/4] overflow-hidden">
         <img
           src={lady.imageUrl}
           alt={lady.name}
@@ -220,6 +220,21 @@ const LadySelection: React.FC = () => {
     console.log('🔍 Modal show state set to true');
   };
 
+  const handleNavigateToLady = (direction: 'next' | 'previous') => {
+    if (!modalLady) return;
+    
+    const currentIndex = filteredLadies.findIndex(lady => lady.id === modalLady.id);
+    let newIndex;
+    
+    if (direction === 'next') {
+      newIndex = currentIndex === filteredLadies.length - 1 ? 0 : currentIndex + 1;
+    } else {
+      newIndex = currentIndex === 0 ? filteredLadies.length - 1 : currentIndex - 1;
+    }
+    
+    setModalLady(filteredLadies[newIndex]);
+  };
+
   const closeModal = () => {
     setShowModal(false);
     setModalLady(null);
@@ -230,11 +245,11 @@ const LadySelection: React.FC = () => {
     : mockLadies;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-24">
+    <div className="min-h-screen bg-black pt-20 pb-24">
       {/* Header Section */}
-      <div className="px-6 py-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
+      <section className="py-20 bg-black">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-serif text-white mb-4 leading-tight">
               {t('ladies.title')}
               <span 
@@ -255,7 +270,7 @@ const LadySelection: React.FC = () => {
 
           {/* Filter Buttons */}
           <div className="flex justify-center mb-8">
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg p-1 border border-slate-700/50">
+            <div className="bg-gray-900/80 backdrop-blur-sm rounded-lg p-1 border border-gray-800/50">
               <button
                 onClick={() => setFilter('all')}
                 className={`px-6 py-2 rounded-md font-medium transition-all duration-300 ${
@@ -291,11 +306,12 @@ const LadySelection: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Ladies Grid */}
-      <div className="px-6 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {filteredLadies.map((lady) => (
             <LadyCard
               key={lady.id}
@@ -306,28 +322,29 @@ const LadySelection: React.FC = () => {
           ))}
         </div>
 
-        {filteredLadies.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-slate-400 text-lg">
-              {t('ladies.no_available')}
-            </p>
-            <button
-              onClick={() => setFilter('all')}
-              className="mt-4 transition-colors"
-              style={{ color: 'var(--color-accent-primary)' }}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-light)'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-accent-primary)'}
-            >
-              {t('ladies.show_all')}
-            </button>
-          </div>
-        )}
-      </div>
+          {filteredLadies.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-slate-400 text-lg">
+                {t('ladies.no_available')}
+              </p>
+              <button
+                onClick={() => setFilter('all')}
+                className="mt-4 transition-colors"
+                style={{ color: 'var(--color-accent-primary)' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-accent-light)'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-accent-primary)'}
+              >
+                {t('ladies.show_all')}
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* Bottom Info Section */}
-      <div className="border-t border-slate-800/50">
-        <div className="px-6 py-12">
-          <div className="text-center max-w-2xl mx-auto">
+      <section className="py-16 bg-gray-900">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-2xl mx-auto">
             <h3 className="text-2xl font-serif mb-4" style={{ color: 'var(--color-accent-primary)' }}>
               {t('ladies.info.title')}
             </h3>
@@ -336,7 +353,7 @@ const LadySelection: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Lady Details Modal */}
       <LadyDetailsModal
@@ -344,6 +361,9 @@ const LadySelection: React.FC = () => {
         isOpen={showModal}
         onClose={closeModal}
         onBook={handleSelectLady}
+        allLadies={filteredLadies}
+        currentIndex={modalLady ? filteredLadies.findIndex(lady => lady.id === modalLady.id) : 0}
+        onNavigateLady={handleNavigateToLady}
       />
     </div>
   );

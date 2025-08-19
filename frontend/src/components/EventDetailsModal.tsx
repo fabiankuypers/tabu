@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import type { Event } from '../data/mock-data';
+import { useGlobalLanguage } from '../hooks/useGlobalLanguage';
 
 interface EventDetailsModalProps {
   event: Event | null;
@@ -16,6 +17,8 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
   onRegister,
   userLevel
 }) => {
+  const { t, language } = useGlobalLanguage();
+  
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -41,7 +44,7 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('de-DE', {
+    return date.toLocaleDateString(language === 'de' ? 'de-DE' : 'en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -58,10 +61,10 @@ const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
 
   const getLevelLabel = (level: number) => {
     switch (level) {
-      case 1: return 'Basis';
-      case 2: return 'Premium';
-      case 3: return 'VIP';
-      default: return 'Unbekannt';
+      case 1: return t('events.level.basis');
+      case 2: return t('events.level.premium');
+      case 3: return t('events.level.vip');
+      default: return t('events.level.unknown');
     }
   };
 

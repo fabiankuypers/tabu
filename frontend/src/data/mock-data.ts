@@ -271,7 +271,7 @@ export const mockEvents: Event[] = [
     maxGuests: 24,
     currentGuests: 18,
     level: 2,
-    imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&crop=center",
+    imageUrl: "/maskenball swingerevent.webp",
     features: ["Live Jazz Band", "5-Gang Menü", "Premium Bar", "Diskrete Fotografie"]
   },
   {
@@ -286,7 +286,7 @@ export const mockEvents: Event[] = [
     maxGuests: 15,
     currentGuests: 12,
     level: 1,
-    imageUrl: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&h=400&fit=crop&crop=center",
+    imageUrl: "/kinky-kunstausstellung-flashy.webp",
     features: ["Künstler-Führung", "Champagner Tasting", "Kunstkatalog", "Networking"]
   },
   {

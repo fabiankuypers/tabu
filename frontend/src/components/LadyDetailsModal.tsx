@@ -1,20 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import type { Lady } from '../data/mock-data';
+import { useGlobalLanguage } from '../hooks/useGlobalLanguage';
 
 interface LadyDetailsModalProps {
   lady: Lady | null;
   isOpen: boolean;
   onClose: () => void;
   onBook: (lady: Lady) => void;
+  allLadies?: Lady[];
+  currentIndex?: number;
+  onNavigateLady?: (direction: 'next' | 'previous') => void;
 }
 
 const LadyDetailsModal: React.FC<LadyDetailsModalProps> = ({
   lady,
   isOpen,
   onClose,
-  onBook
+  onBook,
+  allLadies = [],
+  currentIndex = 0,
+  onNavigateLady
 }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const { t, language } = useGlobalLanguage();
+
+  // Reset image index when lady changes
+  useEffect(() => {
+    setSelectedImageIndex(0);
+  }, [lady?.id]);
 
   // Close modal on escape key
   useEffect(() => {
@@ -92,26 +105,61 @@ const LadyDetailsModal: React.FC<LadyDetailsModalProps> = ({
                       ? 'bg-green-600/80' 
                       : 'bg-red-600/80'
                   }`}>
-                    {lady.available ? 'Verfügbar' : 'Ausgebucht'}
+                    {lady.available ? t('status.available') : t('status.booked')}
                   </span>
                 </div>
 
-                {/* Navigation Arrows */}
+                {/* Lady Counter */}
+                {onNavigateLady && allLadies.length > 1 && (
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
+                    <div className="bg-slate-900/80 backdrop-blur-sm px-3 py-1 rounded-full text-white text-sm">
+                      {currentIndex + 1} / {allLadies.length}
+                    </div>
+                  </div>
+                )}
+
+                {/* Lady Navigation Arrows */}
+                {onNavigateLady && allLadies.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => onNavigateLady('previous')}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-slate-900/80 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-slate-800/80 transition-colors z-20"
+                      title="Vorherige Lady"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => onNavigateLady('next')}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-slate-900/80 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-slate-800/80 transition-colors z-20"
+                      title="Nächste Lady"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </>
+                )}
+
+                {/* Image Navigation Arrows - smaller and positioned differently */}
                 {gallery.length > 1 && (
                   <>
                     <button
                       onClick={() => setSelectedImageIndex(selectedImageIndex === 0 ? gallery.length - 1 : selectedImageIndex - 1)}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-900/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-slate-800/80 transition-colors"
+                      className="absolute left-16 bottom-20 w-8 h-8 bg-slate-900/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-slate-800/80 transition-colors"
+                      title="Vorheriges Bild"
                     >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                       </svg>
                     </button>
                     <button
                       onClick={() => setSelectedImageIndex(selectedImageIndex === gallery.length - 1 ? 0 : selectedImageIndex + 1)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-900/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-slate-800/80 transition-colors"
+                      className="absolute right-16 bottom-20 w-8 h-8 bg-slate-900/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-slate-800/80 transition-colors"
+                      title="Nächstes Bild"
                     >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </button>
@@ -151,21 +199,21 @@ const LadyDetailsModal: React.FC<LadyDetailsModalProps> = ({
               <div>
                 <h1 className="text-4xl font-serif text-white mb-3">{lady.name}</h1>
                 <div className="flex items-center gap-4 text-slate-300 mb-4">
-                  <span>{lady.age} Jahre</span>
+                  <span>{lady.age} {t('modal.years')}</span>
                   <span>•</span>
                   <span>{lady.height}</span>
                   <span>•</span>
                   <span>{lady.location}</span>
                 </div>
                 <div className="text-2xl font-bold mb-4" style={{ color: 'var(--color-accent-primary)' }}>
-                  {formatPrice(lady.pricePerHour)}/Stunde
+                  {formatPrice(lady.pricePerHour)}/{t('modal.per_hour').replace('pro ', '')}
                 </div>
               </div>
 
               {/* About */}
               <div>
                 <h3 className="text-xl font-serif mb-3" style={{ color: 'var(--color-accent-primary)' }}>
-                  Über mich
+                  {t('modal.about_me')}
                 </h3>
                 <p className="text-slate-300 leading-relaxed">
                   {lady.aboutMe}
@@ -175,7 +223,7 @@ const LadyDetailsModal: React.FC<LadyDetailsModalProps> = ({
               {/* Personality */}
               <div>
                 <h3 className="text-lg font-serif mb-3" style={{ color: 'var(--color-accent-primary)' }}>
-                  Persönlichkeit
+                  {t('modal.personality')}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {lady.personality.map((trait, index) => (
@@ -192,7 +240,7 @@ const LadyDetailsModal: React.FC<LadyDetailsModalProps> = ({
               {/* Interests */}
               <div>
                 <h3 className="text-lg font-serif mb-3" style={{ color: 'var(--color-accent-primary)' }}>
-                  Interessen
+                  {t('modal.interests')}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {lady.interests.map((interest, index) => (
@@ -214,7 +262,7 @@ const LadyDetailsModal: React.FC<LadyDetailsModalProps> = ({
               {/* Services */}
               <div>
                 <h3 className="text-lg font-serif mb-3" style={{ color: 'var(--color-accent-primary)' }}>
-                  Services
+                  {t('modal.services')}
                 </h3>
                 <div className="grid grid-cols-2 gap-2">
                   {lady.services.slice(0, 6).map((service, index) => (
@@ -231,7 +279,7 @@ const LadyDetailsModal: React.FC<LadyDetailsModalProps> = ({
               {/* Languages */}
               <div>
                 <h3 className="text-lg font-serif mb-3" style={{ color: 'var(--color-accent-primary)' }}>
-                  Sprachen
+                  {t('modal.languages')}
                 </h3>
                 <div className="flex gap-2 text-slate-300">
                   {lady.languages.join(' • ')}
@@ -263,12 +311,12 @@ const LadyDetailsModal: React.FC<LadyDetailsModalProps> = ({
                     e.currentTarget.style.boxShadow = 'var(--shadow-accent)';
                   } : undefined}
                 >
-                  {lady.available ? 'Jetzt buchen' : 'Derzeit nicht verfügbar'}
+                  {lady.available ? t('button.book_now') : t('modal.not_available_currently')}
                 </button>
                 
                 {lady.available && (
                   <p className="text-center text-slate-400 text-sm mt-3">
-                    Diskret • Sicher • Exklusiv
+                    {t('modal.discretion')}
                   </p>
                 )}
               </div>
