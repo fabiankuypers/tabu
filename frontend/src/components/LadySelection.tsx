@@ -3,6 +3,7 @@ import { mockLadies } from '../data/mock-data';
 import type { Lady } from '../data/mock-data';
 import { useGlobalLanguage } from '../hooks/useGlobalLanguage';
 import LadyDetailsModal from './LadyDetailsModal';
+import OptimizedImage from './OptimizedImage';
 
 interface LadyCardProps {
   lady: Lady;
@@ -11,19 +12,9 @@ interface LadyCardProps {
 }
 
 const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady, onViewDetails }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
   const { t } = useGlobalLanguage();
   
   console.log('👩 LadyCard rendering for:', lady.name, 'imageUrl:', lady.imageUrl);
-  
-  // Force show images for debugging
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log('⏰ Force setting imageLoaded to true for:', lady.name);
-      setImageLoaded(true);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [lady.name]);
 
   return (
     <div 
@@ -49,25 +40,13 @@ const LadyCard: React.FC<LadyCardProps> = ({ lady, onSelectLady, onViewDetails }
       </div>
 
       {/* Image Container */}
-      <div className="relative aspect-[3/4] overflow-hidden">
-        <img
-          src={lady.imageUrl}
-          alt={lady.name}
-          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 opacity-100`}
-          style={{ 
-            opacity: imageLoaded ? 1 : 0.3,
-            filter: imageLoaded ? 'blur(0px)' : 'blur(2px)'
-          }}
-          onLoad={() => {
-            console.log('👩 Lady image loaded:', lady.name, lady.imageUrl);
-            setImageLoaded(true);
-          }}
-          onError={() => {
-            console.log('❌ Lady image failed to load:', lady.name, lady.imageUrl);
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
-      </div>
+      <OptimizedImage
+        src={lady.imageUrl}
+        alt={lady.name}
+        className="aspect-[3/4] card-image group-hover:scale-110"
+        fallbackSrc="/ladies/Isabella.webp"
+        priority={false}
+      />
 
       {/* Content */}
       <div className="p-6">

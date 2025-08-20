@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { mockEvents } from '../data/mock-data';
 import type { Event } from '../data/mock-data';
 import EventDetailsModal from './EventDetailsModal';
+import OptimizedImage from './OptimizedImage';
 import Navigation from './Navigation';
 
 interface EventCardProps {
@@ -12,7 +13,6 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event, userLevel = 1, onJoinEvent, onViewDetails }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
   
   const isAccessible = userLevel >= event.level;
   const isFull = event.currentGuests >= event.maxGuests;
@@ -108,24 +108,15 @@ const EventCard: React.FC<EventCardProps> = ({ event, userLevel = 1, onJoinEvent
 
       {/* Image Container */}
       <div className="relative h-48 overflow-hidden">
-        <img
+        <OptimizedImage
           src={event.imageUrl}
           alt={event.title}
-          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
-            imageLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-sm'
-          }`}
-          onLoad={() => {
-            console.log('🎉 Event image loaded:', event.title, event.imageUrl);
-            setImageLoaded(true);
-          }}
-          onError={() => {
-            console.log('❌ Event image failed to load:', event.title, event.imageUrl);
-          }}
+          className="card-image group-hover:scale-110"
+          fallbackSrc="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&crop=center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
         
         {/* Price Overlay */}
-        <div className="absolute bottom-4 right-4">
+        <div className="absolute bottom-4 right-4 z-10">
           <div className="bg-slate-900/80 backdrop-blur-sm px-3 py-2 rounded-lg border" style={{ borderColor: 'var(--color-accent-border)' }}>
             <span className="font-semibold" style={{ color: 'var(--color-accent-primary)' }}>{formatPrice(event.price)}</span>
           </div>

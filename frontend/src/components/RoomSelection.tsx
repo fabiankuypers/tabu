@@ -3,6 +3,7 @@ import { mockRooms } from '../data/mock-data';
 import type { Room } from '../data/mock-data';
 import { useGlobalLanguage } from '../hooks/useGlobalLanguage';
 import RoomDetailsModal from './RoomDetailsModal';
+import OptimizedImage from './OptimizedImage';
 
 interface RoomCardProps {
   room: Room;
@@ -11,19 +12,9 @@ interface RoomCardProps {
 }
 
 const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom, onViewDetails }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
   const { t } = useGlobalLanguage();
   
   console.log('🏠 RoomCard rendering for:', room.name, 'imageUrl:', room.imageUrl);
-  
-  // Force show images for debugging
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log('⏰ Force setting imageLoaded to true for:', room.name);
-      setImageLoaded(true);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [room.name]);
 
   const getCategoryLabel = (category: string) => {
     switch (category) {
@@ -67,27 +58,16 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onSelectRoom, onViewDetails }
       </div>
 
       {/* Image Container */}
-      <div className="relative h-64 overflow-hidden">
-        <img
+      <div className="relative aspect-square overflow-hidden">
+        <OptimizedImage
           src={room.imageUrl}
           alt={room.name}
-          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 opacity-100`}
-          style={{ 
-            opacity: imageLoaded ? 1 : 0.3,
-            filter: imageLoaded ? 'blur(0px)' : 'blur(2px)'
-          }}
-          onLoad={() => {
-            console.log('🏠 Room image loaded:', room.name, room.imageUrl);
-            setImageLoaded(true);
-          }}
-          onError={() => {
-            console.log('❌ Room image failed to load:', room.name, room.imageUrl);
-          }}
+          className="card-image group-hover:scale-110"
+          fallbackSrc="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&crop=center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
         
         {/* Price Overlay */}
-        <div className="absolute bottom-4 right-4">
+        <div className="absolute bottom-4 right-4 z-10">
           <div className="bg-slate-900/80 backdrop-blur-sm px-3 py-2 rounded-lg border" style={{ borderColor: 'var(--color-accent-border)' }}>
             <span className="font-semibold" style={{ color: 'var(--color-accent-primary)' }}>{formatPrice(room.pricePerHour)}</span>
             <span className="text-slate-300 text-sm ml-1">/Stunde</span>

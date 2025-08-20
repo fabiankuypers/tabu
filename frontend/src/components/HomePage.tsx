@@ -3,6 +3,7 @@ import { useGlobalLanguage } from '../hooks/useGlobalLanguage';
 import { mockEvents, mockLadies } from '../data/mock-data';
 import Navigation from './Navigation';
 import TableBookingModal from './TableBookingModal';
+import OptimizedImage from './OptimizedImage';
 
 const HomePage: React.FC = () => {
   const { t, language } = useGlobalLanguage();
@@ -90,10 +91,10 @@ const HomePage: React.FC = () => {
         {/* Hero Content */}
         <div className="relative z-10 flex items-center justify-center h-full text-center px-6">
           <div className="max-w-4xl">
-            <h1 className="text-6xl md:text-8xl font-serif text-white mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-serif text-white mb-6 leading-tight">
               <span className="block">TABU</span>
               <span 
-                className="text-transparent bg-clip-text block text-5xl md:text-6xl mt-4"
+                className="text-transparent bg-clip-text block text-3xl sm:text-5xl md:text-6xl mt-4"
                 style={{
                   background: `linear-gradient(to right, var(--color-accent-primary), var(--color-accent-light))`,
                   WebkitBackgroundClip: 'text',
@@ -103,7 +104,7 @@ const HomePage: React.FC = () => {
                 {language === 'de' ? 'Gentleman\'s Club' : 'Gentleman\'s Club'}
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-slate-200 mb-12 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-slate-200 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto px-4">
               {language === 'de' 
                 ? 'Erleben Sie diskrete Eleganz und unvergessliche Momente in unserem privaten Refugium für kultivierte Herren.'
                 : 'Experience discreet elegance and unforgettable moments in our private refuge for cultured gentlemen.'
@@ -111,10 +112,10 @@ const HomePage: React.FC = () => {
             </p>
             
             {/* Hero CTAs */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
               <a
                 href="/events"
-                className="font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 border-2"
+                className="font-semibold py-4 px-6 sm:px-8 rounded-lg transition-all duration-300 transform hover:scale-105 border-2 min-h-[56px] flex items-center justify-center"
                 style={{
                   borderColor: 'var(--color-accent-primary)',
                   color: 'var(--color-accent-primary)',
@@ -133,7 +134,7 @@ const HomePage: React.FC = () => {
               </a>
               <a
                 href="/ladies"
-                className="font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
+                className="font-semibold py-4 px-6 sm:px-8 rounded-lg transition-all duration-300 transform hover:scale-105 min-h-[56px] flex items-center justify-center"
                 style={{
                   backgroundColor: 'var(--color-accent-primary)',
                   color: 'var(--color-text-on-accent)'
@@ -162,8 +163,8 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Current Events Section */}
-      <section className="py-20 bg-black">
-        <div className="container mx-auto px-6">
+      <section className="py-12 sm:py-20 bg-black">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
               {language === 'de' ? 'Aktuelle' : 'Current'}
@@ -186,26 +187,31 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             {mockEvents.slice(0, 3).map((event) => (
-              <div key={event.id} className="bg-gray-900/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800/50 transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
+              <div key={event.id} className="bg-gray-900/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800/50 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 mx-auto w-full max-w-sm md:max-w-none">
                 <div className="relative h-48">
-                  <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover" />
+                  <OptimizedImage 
+                    src={event.imageUrl} 
+                    alt={event.title} 
+                    className="w-full h-full object-cover" 
+                    fallbackSrc="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&crop=center"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                   <div className="absolute bottom-4 left-4 right-4">
                     <h3 className="text-xl font-serif text-white mb-2">{event.title}</h3>
                     <p className="text-slate-300 text-sm">{new Date(event.date).toLocaleDateString(language === 'de' ? 'de-DE' : 'en-US')}</p>
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-slate-300 mb-4 line-clamp-2">{event.description}</p>
+                <div className="p-4 sm:p-6">
+                  <p className="text-slate-300 mb-4 line-clamp-2 text-sm sm:text-base">{event.description}</p>
                   <div className="flex justify-between items-center">
                     <span className="text-2xl font-semibold" style={{ color: 'var(--color-accent-primary)' }}>
                       €{event.price}
                     </span>
                     <button
                       onClick={() => setShowBookingModal(true)}
-                      className="px-4 py-2 rounded-lg font-medium transition-all duration-300"
+                      className="px-4 py-2 rounded-lg font-medium transition-all duration-300 min-h-[44px] touch-manipulation"
                       style={{
                         backgroundColor: 'var(--color-accent-primary)',
                         color: 'var(--color-text-on-accent)'
@@ -238,24 +244,24 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
-        <div className="container mx-auto px-6">
+      <section className="py-12 sm:py-20 bg-gradient-to-b from-black to-gray-900">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-serif text-white mb-6">
               {language === 'de' ? 'Was unsere Gäste sagen' : 'What Our Guests Say'}
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="text-center">
-                <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800/40 hover:border-gray-700/60 transition-all duration-500">
+                <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-800/40 hover:border-gray-700/60 transition-all duration-500">
                   <div className="mb-6">
                     <svg className="w-8 h-8 mx-auto" style={{ color: 'var(--color-accent-primary)' }} fill="currentColor" viewBox="0 0 24 24">
                       <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
                     </svg>
                   </div>
-                  <blockquote className="text-lg text-slate-300 mb-6 leading-relaxed italic">
+                  <blockquote className="text-base sm:text-lg text-slate-300 mb-4 sm:mb-6 leading-relaxed italic">
                     "{testimonial.quote}"
                   </blockquote>
                   <cite className="text-sm font-medium" style={{ color: 'var(--color-accent-primary)' }}>
@@ -269,12 +275,12 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gray-900">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-serif text-white mb-4">
+      <section className="py-12 sm:py-16 bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl font-serif text-white mb-4">
             {language === 'de' ? 'Bereit für Ihr exklusives Erlebnis?' : 'Ready for Your Exclusive Experience?'}
           </h2>
-          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-slate-300 mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
             {language === 'de'
               ? 'Reservieren Sie Ihren Tisch für einen unvergesslichen Abend voller Eleganz und Diskretion.'
               : 'Reserve your table for an unforgettable evening full of elegance and discretion.'
@@ -282,7 +288,7 @@ const HomePage: React.FC = () => {
           </p>
           <button
             onClick={() => setShowBookingModal(true)}
-            className="font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 text-xl"
+            className="font-semibold py-4 px-6 sm:px-8 rounded-lg transition-all duration-300 transform hover:scale-105 text-lg sm:text-xl min-h-[56px] touch-manipulation w-full sm:w-auto max-w-xs sm:max-w-none mx-auto"
             style={{
               backgroundColor: 'var(--color-accent-primary)',
               color: 'var(--color-text-on-accent)'
@@ -302,8 +308,8 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Ladies Preview Section */}
-      <section className="py-20 bg-black">
-        <div className="container mx-auto px-6">
+      <section className="py-12 sm:py-20 bg-black">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
               {language === 'de' ? 'Elegante' : 'Elegant'}
@@ -326,19 +332,20 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
             {mockLadies.map((lady) => (
-              <div key={lady.id} className="group relative overflow-hidden rounded-2xl">
+              <div key={lady.id} className="group relative overflow-hidden rounded-2xl touch-manipulation">
                 <div className="aspect-[3/4] relative overflow-hidden">
-                  <img 
+                  <OptimizedImage 
                     src={lady.imageUrl} 
                     alt={lady.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    fallbackSrc="/ladies/Isabella.webp"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <h3 className="text-xl font-serif mb-2">{lady.name}</h3>
-                    <p className="text-sm text-slate-300 line-clamp-2">{lady.description}</p>
+                  <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 text-white">
+                    <h3 className="text-lg sm:text-xl font-serif mb-1 sm:mb-2">{lady.name}</h3>
+                    <p className="text-xs sm:text-sm text-slate-300 line-clamp-2">{lady.description}</p>
                   </div>
                 </div>
               </div>
@@ -364,12 +371,12 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Rooms Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-serif text-white mb-6">
+      <section className="py-12 sm:py-20 bg-gradient-to-b from-black to-gray-900">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-3xl sm:text-4xl font-serif text-white mb-6">
             {language === 'de' ? 'Exklusive Räumlichkeiten' : 'Exclusive Rooms'}
           </h2>
-          <p className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-slate-300 mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
             {language === 'de'
               ? 'Perfekt gestaltete Refugien für Ihre intimsten Momente - vom intimen Nest bis zur opulenten Suite.'
               : 'Perfectly designed refuges for your most intimate moments - from intimate nests to opulent suites.'
@@ -392,13 +399,13 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gray-900">
-        <div className="container mx-auto px-6">
+      <section className="py-12 sm:py-20 bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-serif text-white mb-6">
+            <h2 className="text-3xl sm:text-4xl font-serif text-white mb-6">
               {language === 'de' ? 'Häufige Fragen' : 'Frequently Asked Questions'}
             </h2>
-            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto px-4">
               {language === 'de'
                 ? 'Alles was Sie über Ihren Besuch wissen müssen.'
                 : 'Everything you need to know about your visit.'
@@ -409,15 +416,15 @@ const HomePage: React.FC = () => {
           <div className="max-w-4xl mx-auto space-y-6">
             {faqs.map((faq, index) => (
               <details key={index} className="group bg-black/60 backdrop-blur-sm rounded-xl border border-gray-800/50 overflow-hidden">
-                <summary className="flex justify-between items-center p-6 cursor-pointer list-none">
-                  <h3 className="text-lg font-medium text-white group-open:text-accent-primary transition-colors">
+                <summary className="flex justify-between items-center p-4 sm:p-6 cursor-pointer list-none touch-manipulation min-h-[64px]">
+                  <h3 className="text-base sm:text-lg font-medium text-white group-open:text-accent-primary transition-colors">
                     {faq.question}
                   </h3>
                   <svg className="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
-                <div className="px-6 pb-6">
+                <div className="px-4 sm:px-6 pb-4 sm:pb-6">
                   <p className="text-slate-300 leading-relaxed">{faq.answer}</p>
                 </div>
               </details>
@@ -427,15 +434,15 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-16">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8">
+      <footer className="bg-black text-white py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             {/* Logo & Description */}
             <div className="md:col-span-2">
               <div className="flex items-center mb-6">
-                <img src="/tabu-logo.jpg" alt="TABU" className="h-16 w-auto rounded-2xl" />
+                <img src="/tabu-logo.jpg" alt="TABU" className="h-12 sm:h-16 w-auto rounded-2xl" />
               </div>
-              <p className="text-slate-300 leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
                 {language === 'de'
                   ? 'Ein exklusiver Gentleman\'s Club, der diskrete Eleganz und unvergessliche Erlebnisse für kultivierte Herren bietet.'
                   : 'An exclusive gentleman\'s club offering discreet elegance and unforgettable experiences for cultured gentlemen.'

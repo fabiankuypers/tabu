@@ -52,12 +52,12 @@ export const mockRooms: Room[] = [
     id: "1",
     name: "Le Petit Amour",
     description: "Ein intimes Refugium für die besonderen Momente zu zweit. Warm beleuchteter Raum mit edlen Materialien und diskreter Atmosphäre, die Vertrauen und Nähe schafft.",
-    imageUrl: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&crop=center",
+    imageUrl: "/ladies/rooms/standard.webp",
     galleryImages: [
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop&crop=center"
+      "/ladies/rooms/standard.webp",
+      "/ladies/rooms/standard2.webp",
+      "/ladies/rooms/standard3.jpg",
+      "/ladies/rooms/standard4.webp"
     ],
     category: "intimate",
     features: ["King-Size Bett", "Dimmbare Beleuchtung", "Premium Sound-System", "Champagner Service"],
@@ -73,13 +73,13 @@ export const mockRooms: Room[] = [
     id: "2", 
     name: "L'Oasis du Plaisir",
     description: "Luxuriöser Raum mit privatem Whirlpool und exquisiter Ausstattung. Hier verschmelzen Eleganz und Sinnlichkeit zu einem unvergesslichen Erlebnis der Extraklasse.",
-    imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop&crop=center",
+    imageUrl: "/ladies/rooms/premium1.webp",
     galleryImages: [
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=800&h=600&fit=crop&crop=center"
+      "/ladies/rooms/premium1.webp",
+      "/ladies/rooms/premium2.webp",
+      "/ladies/rooms/premium3.webp",
+      "/ladies/rooms/standard.webp",
+      "/ladies/rooms/standard2.webp"
     ],
     category: "luxury",
     features: ["Private Whirlpool", "Regendusche", "Panorama-Fenster", "Butler Service", "Premium Bar"],
@@ -95,14 +95,14 @@ export const mockRooms: Room[] = [
     id: "3",
     name: "Le Sanctuaire", 
     description: "Die ultimative Suite für exklusive Gesellschaften. Großzügiger Raum mit mehreren Bereichen, perfekt für diskrete Events und unvergessliche Nächte mit ausgewählten Gästen.",
-    imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop&crop=center",
+    imageUrl: "/ladies/rooms/luxury1.webp",
     galleryImages: [
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop&crop=center",
-      "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=800&h=600&fit=crop&crop=center"
+      "/ladies/rooms/luxury1.webp",
+      "/ladies/rooms/luxury2.webp",
+      "/ladies/rooms/premium1.webp",
+      "/ladies/rooms/premium2.webp",
+      "/ladies/rooms/premium3.webp",
+      "/ladies/rooms/standard.webp"
     ],
     category: "suite",
     features: ["Multiple Bereiche", "Private Lounge", "Concierge Service", "Gourmet Catering", "VIP Eingang"],
@@ -271,7 +271,7 @@ export const mockEvents: Event[] = [
     maxGuests: 24,
     currentGuests: 18,
     level: 2,
-    imageUrl: "/maskenball swingerevent.webp",
+    imageUrl: "/maskenball-swingerevent.webp",
     features: ["Live Jazz Band", "5-Gang Menü", "Premium Bar", "Diskrete Fotografie"]
   },
   {
@@ -286,7 +286,7 @@ export const mockEvents: Event[] = [
     maxGuests: 15,
     currentGuests: 12,
     level: 1,
-    imageUrl: "/kinky-kunstausstellung-flashy.webp",
+    imageUrl: "/kunst-genuss.webp",
     features: ["Künstler-Führung", "Champagner Tasting", "Kunstkatalog", "Networking"]
   },
   {
@@ -301,7 +301,7 @@ export const mockEvents: Event[] = [
     maxGuests: 12,
     currentGuests: 8,
     level: 3,
-    imageUrl: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop&crop=center",
+    imageUrl: "/ladies/bourlesque-exklusiver abend für premiumgäste.webp",
     features: ["Private Location", "Personal Butler", "Exklusive Ladies", "24h Service"]
   }
 ];
