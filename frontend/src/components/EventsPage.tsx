@@ -112,7 +112,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, userLevel = 1, onJoinEvent
           src={event.imageUrl}
           alt={event.title}
           className="card-image group-hover:scale-110"
-          fallbackSrc="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&crop=center"
+          fallbackSrc="/ladies/bourlesque-premium-event.webp"
         />
         
         {/* Price Overlay */}

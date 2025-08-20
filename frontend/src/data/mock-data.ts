@@ -301,7 +301,7 @@ export const mockEvents: Event[] = [
     maxGuests: 12,
     currentGuests: 8,
     level: 3,
-    imageUrl: "/ladies/bourlesque-exklusiver abend für premiumgäste.webp",
+    imageUrl: "/ladies/bourlesque-premium-event.webp",
     features: ["Private Location", "Personal Butler", "Exklusive Ladies", "24h Service"]
   }
 ];

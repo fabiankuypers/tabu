@@ -195,7 +195,7 @@ const HomePage: React.FC = () => {
                     src={event.imageUrl} 
                     alt={event.title} 
                     className="w-full h-full object-cover" 
-                    fallbackSrc="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&crop=center"
+                    fallbackSrc="/ladies/bourlesque-premium-event.webp"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                   <div className="absolute bottom-4 left-4 right-4">

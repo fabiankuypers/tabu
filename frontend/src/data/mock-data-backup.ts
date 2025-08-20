@@ -209,7 +209,7 @@ export const mockEvents: Event[] = [
     maxGuests: 24,
     currentGuests: 18,
     level: 2,
-    imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&crop=center",
+    imageUrl: "/ladies/bourlesque-premium-event.webp",
     features: ["Live Jazz Band", "5-Gang Menü", "Premium Bar", "Diskrete Fotografie"]
   },
   {
@@ -224,7 +224,7 @@ export const mockEvents: Event[] = [
     maxGuests: 15,
     currentGuests: 12,
     level: 1,
-    imageUrl: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&h=400&fit=crop&crop=center",
+    imageUrl: "",
     features: ["Künstler-Führung", "Champagner Tasting", "Kunstkatalog", "Networking"]
   },
   {
@@ -239,7 +239,7 @@ export const mockEvents: Event[] = [
     maxGuests: 12,
     currentGuests: 8,
     level: 3,
-    imageUrl: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop&crop=center",
+    imageUrl: "/ladies/bourlesque-premium-event.webp",
     features: ["Private Location", "Personal Butler", "Exklusive Ladies", "24h Service"]
   }
 ];
